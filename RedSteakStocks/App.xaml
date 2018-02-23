@@ -1,0 +1,424 @@
+﻿<Application x:Class="RedSteakStocks.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:RedSteakStocks"
+             xmlns:classes="clr-namespace:RedSteakStocks.Classes"
+             xmlns:converters="clr-namespace:RedSteakStocks.Converters">
+    <Application.Resources>
+
+        <converters:BoolToVisibilityConverter
+         x:Key="BoolToVisibilityConverter"
+         TrueValue="Visible" FalseValue="Collapsed" />
+
+        <!--DataGridCells-->
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Padding" Value="8" />
+        </Style>
+
+        <!--Ribbon-->
+
+        <ResourceDictionary x:Key="Xxx">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Fluent;component/Themes/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Fluent;component/Themes/Colors/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/RedSteakStocks;component/themes/accents/MyTheme.xaml"/>
+                <ResourceDictionary>
+                    <Style x:Key="SelectionRowHeader" TargetType="DataGridRowHeader" BasedOn="{StaticResource {x:Type DataGridRowHeader}}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Foreground" Value="WhiteSmoke" />
+                    </Style>
+                    <Style x:Key="SelectionColumnHeader" TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Foreground" Value="WhiteSmoke" />
+                    </Style>
+                    <Style x:Key="SelectionDataGridCell_Symbol" TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                        <Setter Property="Width" Value="Auto" />
+                        <Setter Property="ContentTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <Label Content="{Binding Symbol}" Foreground="AntiqueWhite" Padding="2" Margin="1" Width="80"></Label>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="DarkBlue"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style x:Key="SelectionDataGridCell_Name" TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                        <Setter Property="Width" Value="Auto" />
+                        <Setter Property="ContentTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <TextBlock 
+                                        Text="{Binding Name}" 
+                                        Foreground="AntiqueWhite" 
+                                        Padding="2" 
+                                        Margin="1" 
+                                        Width="180"
+                                        TextWrapping="Wrap">
+                                    </TextBlock>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="DarkBlue"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style x:Key="SelectionDataGridCell_Sector_Industry" TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                        <Setter Property="Width" Value="Auto" />
+                        <Setter Property="ContentTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="{Binding Sector}" Foreground="AntiqueWhite" Padding="2" Margin="1" Width="120"></Label>
+                                        <TextBlock Text="{Binding Industry}" Foreground="AntiqueWhite" Padding="2" Margin="1" Width="100" TextWrapping="Wrap"></TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="DarkBlue"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+        <!--Icons-->
+
+        <BitmapImage UriSource="/Images/add-x.png" x:Key="addStock" />
+        <BitmapImage UriSource="/Images/remove-x.png" x:Key="removeStock" />
+        <BitmapImage UriSource="/Images/refresh-all-x.png" x:Key="reloadAll" />
+        <BitmapImage UriSource="/Images/check-all-x.png" x:Key="checkAll" />
+        <BitmapImage UriSource="/Images/uncheck-all-x.png" x:Key="uncheckAll" />
+        <BitmapImage UriSource="/Images/remove-all-x.png" x:Key="removeAll" />
+
+        <BitmapImage UriSource="/Images/refresh-x.png" x:Key="reloadSelected" />
+        <BitmapImage UriSource="/Images/check-all-x.png" x:Key="checkSelected" />
+        <BitmapImage UriSource="/Images/uncheck-all-x.png" x:Key="uncheckSelected" />
+        <BitmapImage UriSource="/Images/remove-all-x.png" x:Key="removeSelected" />
+
+        <BitmapImage UriSource="/Images/expand-x.png" x:Key="expandAll" />
+        <BitmapImage UriSource="/Images/collapse-x.png" x:Key="collapseAll" />
+
+        <BitmapImage UriSource="/Images/check-x.png" x:Key="check" />
+        <BitmapImage UriSource="/Images/one-minute-x.png" x:Key="oneMinute" />
+        <BitmapImage UriSource="/Images/five-minutes-x.png" x:Key="fiveMinutes" />
+        <BitmapImage UriSource="/Images/fifteen-minutes-x.png" x:Key="fifteenMinutes" />
+        <BitmapImage UriSource="/Images/thirty-minutes-x.png" x:Key="thirtyMinutes" />
+        <BitmapImage UriSource="/Images/one-hour-x.png" x:Key="oneHour" />
+        <BitmapImage UriSource="/Images/daily-x.png" x:Key="daily" />
+        <BitmapImage UriSource="/Images/weekly-x.png" x:Key="weekly" />
+        <BitmapImage UriSource="/Images/monthly-x.png" x:Key="monthly" />
+
+        <BitmapImage UriSource="/Images/uncheck-x.png" x:Key="uncheck" />
+        <BitmapImage UriSource="/Images/un-one-minute-x.png" x:Key="unOneMinute" />
+        <BitmapImage UriSource="/Images/un-five-minutes-x.png" x:Key="unFiveMinutes" />
+        <BitmapImage UriSource="/Images/un-fifteen-minutes-x.png" x:Key="unFifteenMinutes" />
+        <BitmapImage UriSource="/Images/un-thirty-minutes-x.png" x:Key="unThirtyMinutes" />
+        <BitmapImage UriSource="/Images/un-one-hour-x.png" x:Key="unOneHour" />
+        <BitmapImage UriSource="/Images/un-daily-x.png" x:Key="unDaily" />
+        <BitmapImage UriSource="/Images/un-weekly-x.png" x:Key="unWeekly" />
+        <BitmapImage UriSource="/Images/un-monthly-x.png" x:Key="unMonthly" />
+        
+        <!--ListView-->
+
+        <DataTemplate x:Key="TreeTemplate" x:Name="companiesToShowList" DataType="{x:Type classes:CompanyToShow}" >
+            <StackPanel Orientation="Horizontal" Margin="0" >
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                <Setter Property="Background" Value="DarkSeaGreen"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsSelected}" Value="False">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                <ToggleButton x:Name="expander" 
+                              Width="38"
+                              Height="Auto"
+                              OverridesDefaultStyle="True"
+                              VerticalContentAlignment="Bottom"
+                              IsChecked="{Binding IsExpanded, Mode=TwoWay}"
+                              >
+                    <ToggleButton.Template>
+                        <ControlTemplate TargetType="{x:Type ToggleButton}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Border Grid.Row="1" 
+                                        Background="Transparent" 
+                                        BorderBrush="#A0FFE4C4" 
+                                        BorderThickness="2,2,1,1" 
+                                        CornerRadius="2"
+                                        Margin="4">
+                                    <Image Cursor="Hand"
+                                        Width="24" 
+                                        Height="24" >
+                                        <Image.Style>
+                                            <Style TargetType="{x:Type Image}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=expander, Path=IsChecked}" Value="False">
+                                                        <Setter Property="Source" Value="\Images\expand-x.png"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding ElementName=expander, Path=IsChecked}" Value="True">
+                                                        <Setter Property="Source" Value="\Images\collapse-x.png"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </ToggleButton.Template>
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton">
+                            <Setter Property="IsEnabled" Value="True" />
+                            <Setter Property="IsTabStop" Value="False" />
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label 
+                                        Foreground="Black" 
+                                        Background="Transparent"
+                                        FontSize="14" 
+                                        FontWeight="Bold" 
+                                        Padding="0,1" 
+                                        Margin="0" 
+                        
+                                        Width="74"
+                        
+                                        Content="{Binding Symbol}" >
+                    </Label>
+                    <TextBlock 
+                                        
+                                        Padding="1" 
+                                        Margin="0" 
+                                        Text="{Binding Name}"
+                                        TextWrapping="Wrap"
+                                        Width="160"
+                                        >
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                        <Setter Property= "Foreground" Value="Black"/>
+                                        <Setter Property= "FontSize" Value="14"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsSelected}" Value="False">
+                                        <Setter Property= "Foreground" Value="DarkGray"/>
+                                        <Setter Property= "FontSize" Value="10"/>
+                                        <Setter Property="FontWeight" Value="Light"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                </StackPanel>
+
+                <ItemsControl 
+                    ItemsSource="{Binding Apis}" 
+                    Margin="5" 
+                    Visibility="{Binding IsExpanded, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter}}" >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ToggleButton 
+                                    x:Name="apiItemButton" 
+                                    Foreground="Black"
+                                    BorderThickness="0" 
+                                    Padding="0" 
+                                    Margin="2,2,0,0"
+                                    HorizontalAlignment="Stretch"
+                                    HorizontalContentAlignment="Right"
+                                    
+                                    Width="100"
+                                
+                                    IsChecked="{Binding IsChecked}">
+                                <ToggleButton.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="{Binding Name}" 
+                                               HorizontalContentAlignment="Right"
+                                               Padding="0" 
+                                               Margin="8,4,2,4" 
+                                               Width="50"
+                                               Cursor="Hand">
+                                            <Label.Style>
+                                                <Style TargetType="{x:Type Label}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ElementName=apiItemButton,Path=IsChecked}" Value="True">
+                                                            <Setter Property="FontWeight" Value="Bold"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ElementName=apiItemButton,Path=IsChecked}" Value="False">
+                                                            <Setter Property="FontWeight" Value="UltraLight"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Label.Style>
+                                        </Label>
+                                        <Button x:Name="refreshButton" 
+                                                Command="{Binding Refresh}"
+                                                
+                                                Background="Transparent" 
+                                                BorderThickness="1" 
+                                                Padding="4,0" 
+                                                Margin="0" 
+                                                OverridesDefaultStyle="True" >
+                                            <Button.Style>
+                                                <Style TargetType="{x:Type Button}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ElementName=apiItemButton,Path=IsChecked}" Value="True">
+                                                            <Setter Property="IsEnabled" Value="True"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ElementName=apiItemButton,Path=IsChecked}" Value="False">
+                                                            <Setter Property="IsEnabled" Value="False"/>
+                                                            <Setter Property="Background" Value="Transparent"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                            <Button.Template>
+                                                <ControlTemplate>
+                                                    <Border Background="Transparent" BorderBrush="#A0FFE4C4" BorderThickness="2,2,1,1" CornerRadius="2">
+                                                    <Image Width="18" 
+                                                           Margin="3,0"
+                                                           RenderTransformOrigin="0.5,0.5"
+                                                           Cursor="Hand">
+                                                        <Image.RenderTransform>
+                                                            <TransformGroup>
+                                                                <ScaleTransform/>
+                                                                <SkewTransform/>
+                                                                <RotateTransform Angle="30"/>
+                                                                <TranslateTransform/>
+                                                            </TransformGroup>
+                                                        </Image.RenderTransform>
+                                                        <Image.Style>
+                                                            <Style TargetType="{x:Type Image}">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding ElementName=apiItemButton,Path=IsChecked}" Value="True">
+                                                                        <Setter Property="Source" Value="Images\refresh-x.png"/>
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding ElementName=apiItemButton,Path=IsChecked}" Value="False">
+                                                                        <Setter Property="Source" Value="Images\refresh-x-disabled.png"/>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Image.Style>
+                                                    </Image>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </StackPanel>
+                                </ToggleButton.Content>
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                        <Border BorderThickness="0" CornerRadius="2" Background="{TemplateBinding Background}">
+                                            <ContentPresenter Margin="2" 
+                                                   HorizontalAlignment="Center" 
+                                                   VerticalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter Property="Background">
+                                                    <Setter.Value>
+                                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                                            <GradientStop Color="Transparent" Offset="1"/>
+                                                            <GradientStop Color="Transparent" Offset="0.9"/>
+                                                        </LinearGradientBrush>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                            <Trigger Property="IsChecked" Value="False">
+                                                <Setter Property="Background">
+                                                    <Setter.Value>
+                                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                                            <GradientStop Color="Transparent" Offset="1"/>
+                                                            <GradientStop Color="Transparent" Offset="0.307"/>
+                                                        </LinearGradientBrush>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Width="212"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+
+                <!--<WrapPanel Visibility="{Binding IsExpanded, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter}}" 
+                              Padding="0" 
+                              Margin="0,0,20,0" 
+                              BorderThickness="0" 
+                              BorderBrush="Transparent" 
+                              Foreground="Transparent" 
+                              Background="Transparent" 
+                              ItemsSource="{Binding Apis}"
+                              HorizontalAlignment="Stretch"
+                              HorizontalContentAlignment="Left"
+                              Width="Auto" >
+                        <WrapPanel.ItemTemplate>
+                            <DataTemplate>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=expander,
+                                                   Path=IsChecked}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=expander,
+                                                   Path=IsChecked}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                                <Label 
+                                    x:Name="apiItemLabel" 
+                                    Foreground="AntiqueWhite" 
+                                    BorderThickness="0" 
+                                    FontWeight="Light" 
+                                    Padding="0" 
+                                    Margin="0,0,0,0"
+                                    HorizontalAlignment="Stretch"
+                                    HorizontalContentAlignment="Center"
+                                    Content="{Binding}"
+                                    Width="80" >
+
+                                </Label>
+                            </DataTemplate>
+                        </WrapPanel.ItemTemplate>
+                    </WrapPanel>-->
+            </StackPanel>
+        </DataTemplate>
+
+
+
+    </Application.Resources>
+</Application>

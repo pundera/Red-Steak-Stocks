@@ -153,8 +153,8 @@
     <Compile Include="Helpers\GetEnumDescriptionsHelper.cs" />
     <Compile Include="Interfaces\ICompanyListService.cs" />
     <Compile Include="Interfaces\ISelectionCompanyListService.cs" />
-    <Compile Include="Models\CompanyListService.cs" />
-    <Compile Include="Models\SelectionCompanyListService.cs" />
+    <Compile Include="Services\CompanyListService.cs" />
+    <Compile Include="Services\SelectionCompanyListService.cs" />
     <Compile Include="Notifications\CompanySelectionNotification.cs" />
     <Compile Include="Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
@@ -207,7 +207,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Data\companylist.json" />
+    <None Include="Data\companylist.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

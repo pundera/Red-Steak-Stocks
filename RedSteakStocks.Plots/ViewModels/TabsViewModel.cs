@@ -9,6 +9,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Threading;
 using apiWrapper = AlphaVantageApiWrapper;
 
 namespace RedSteakStocks.Plots.ViewModels
@@ -33,36 +35,48 @@ namespace RedSteakStocks.Plots.ViewModels
                 throw new ArgumentNullException(nameof(pars));
             }
 
-            var root = await apiWrapper.AlphaVantageApiWrapper.GetTechnical(pars, "A903Z1G7NAB6A551");
-
-            var title = pars[1].ParamValue;
-
-
-            var isNewTabSymbol = !Tabs.Any((t) => t.Name.Equals(title));
-            var tabSymbol = Tabs.Where((t) => t.Name.Equals(title)).FirstOrDefault() ?? (new TabItemSymbol(title));
-
-            var isNewTabPlot = !tabSymbol.Tabs.Any((t) => t.Name.Equals(name));
-            var tabPlot = tabSymbol.Tabs.Where((t) => t.Name.Equals(name)).FirstOrDefault() ?? (new TabItemPlot(name)); //new TabItemPlot(pars.Count > 3 ? pars[2].ParamValue : " - - - ");
-
-            var data = new ObservableCollection<DataPoint>();
-
-            var ix = 0;
-            foreach (var t in root.TechnicalsByDate)
+            await apiWrapper.AlphaVantageApiWrapper.GetTechnical(pars, "A903Z1G7NAB6A551").ContinueWith(task => 
             {
-                //var start = "";
+                var root = task.Result;
 
-                //var ddd = t.Data.Aggregate(start, (a, b) => a + b.TechnicalKey + "->" + b.TechnicalValue);
-                //Console.WriteLine(t.Date + ":" + ddd);
+                var title = pars[1].ParamValue;
 
-                foreach (var v in t.Data) if (v.TechnicalKey.Equals("1. open")) data.Add(new DataPoint(t.Date.Ticks, v.TechnicalValue));
-                ix++;
+                var isNewTabSymbol = !Tabs.Any((t) => t.Name.Equals(title));
+                var tabSymbol = Tabs.Where((t) => t.Name.Equals(title)).FirstOrDefault() ?? (new TabItemSymbol(title));
 
-            }
-            
-            if (isNewTabPlot) tabSymbol.Tabs.Add(tabPlot);
-            if (isNewTabSymbol) Tabs.Add(tabSymbol);
+                var isNewTabPlot = !tabSymbol.Tabs.Any((t) => t.Name.Equals(name));
+                var tabPlot = tabSymbol.Tabs.Where((t) => t.Name.Equals(name)).FirstOrDefault() ?? (new TabItemPlot(name)); //new TabItemPlot(pars.Count > 3 ? pars[2].ParamValue : " - - - ");
 
-            tabPlot.Points = data;
+                var data = new ObservableCollection<DataPoint>();
+
+                var ix = 0;
+                foreach (var t in root.TechnicalsByDate)
+                {
+                    //var start = "";
+
+                    //var ddd = t.Data.Aggregate(start, (a, b) => a + b.TechnicalKey + "->" + b.TechnicalValue);
+                    //Console.WriteLine(t.Date + ":" + ddd);
+
+                    foreach (var v in t.Data) if (v.TechnicalKey.Equals("1. open")) data.Add(new DataPoint(t.Date.Ticks, v.TechnicalValue));
+                    ix++;
+
+                }
+
+                Task.Yield();
+
+                if (isNewTabPlot) Application.Current.Dispatcher.Invoke(() =>
+                {
+                    tabSymbol.Tabs.Add(tabPlot);
+                });
+
+                if (isNewTabSymbol) Application.Current.Dispatcher.Invoke(() => 
+                {
+                    Tabs.Add(tabSymbol);
+                });
+
+                tabPlot.Points = data;
+
+            });
 
         }
 

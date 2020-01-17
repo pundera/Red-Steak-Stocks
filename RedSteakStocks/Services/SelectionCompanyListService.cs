@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RedSteakStocks.Models
+namespace RedSteakStocks.Services
 {
     [Export(typeof(ISelectionCompanyListService))]
     public class SelectionCompanyListService : ISelectionCompanyListService

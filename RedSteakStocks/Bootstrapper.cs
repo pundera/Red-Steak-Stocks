@@ -7,7 +7,7 @@ using System;
 using Prism.Regions;
 using Autofac;
 using RedSteakStocks.Interfaces;
-using RedSteakStocks.Models;
+using RedSteakStocks.Services;
 using RedSteakStocks.Notifications;
 using RedSteakStocks.ViewModels;
 using RedSteakStocks.Plots.Views;

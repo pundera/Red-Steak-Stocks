@@ -13,7 +13,7 @@ using RedSteakStocks.Classes;
 using RedSteakStocks.Interfaces;
 using Newtonsoft.Json;
 
-namespace RedSteakStocks.Models
+namespace RedSteakStocks.Services
 {
     [Export(typeof(ICompanyListService))]
     public class CompanyListService: ICompanyListService

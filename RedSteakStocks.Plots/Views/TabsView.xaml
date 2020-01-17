@@ -28,11 +28,7 @@
                     </TabControl.ItemContainerStyle>
                     <TabControl.ContentTemplate>
                         <DataTemplate>
-                            <oxy:Plot InvalidateFlag="{Binding InvalidateFlag}">
-                                <oxy:Plot.Series>
-                                    <oxy:LineSeries ItemsSource="{Binding Points}"/>
-                                </oxy:Plot.Series>
-                            </oxy:Plot>
+                                <oxy:PlotView Model="{Binding Model}" />
                         </DataTemplate>
                     </TabControl.ContentTemplate>
                 </TabControl>

@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Classes\TabItemPlot.cs" />
     <Compile Include="Classes\TabItemSymbol.cs" />
+    <Compile Include="Events\TabsHolderChanged.cs" />
     <Compile Include="PlotsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -65,6 +66,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Singletons\TabsHolder.cs" />
     <Compile Include="ViewModels\TabsViewModel.cs" />
     <Compile Include="ViewModels\ViewAViewModel.cs" />
     <Compile Include="Views\TabsView.xaml.cs">

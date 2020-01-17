@@ -14,10 +14,10 @@ namespace RedSteakStocks.Plots.Classes
         public TabItemPlot(string name)
         {
             Name = name;
-            Points = new ObservableCollection<DataPoint>();
+            //Points = new ObservableCollection<DataPoint>();
         }
 
-        private string name;
+    private string name;
         public string Name
         {
             get
@@ -30,14 +30,7 @@ namespace RedSteakStocks.Plots.Classes
             }
         }
 
-        private ObservableCollection<DataPoint> points;
-        public ObservableCollection<DataPoint> Points { get { return points; } set { SetProperty(ref points, value); InvalidateFlag++; } }
-
-        private int invalidateFlag;
-        public int InvalidateFlag
-        {
-            get { return invalidateFlag; }
-            set { SetProperty(ref invalidateFlag, value); }
-        }
+        private PlotModel model = new PlotModel();
+        public PlotModel Model { get { return model; } set { SetProperty(ref model, value); } }
     }
 }

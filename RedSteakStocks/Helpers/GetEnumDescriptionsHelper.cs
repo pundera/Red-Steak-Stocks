@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static AlphaVantageApiWrapper.AlphaVantageApiWrapper;
 
 namespace RedSteakStocks.Helpers
@@ -63,7 +59,5 @@ namespace RedSteakStocks.Helpers
             }
             return descs;
         }
-
-
     }
 }

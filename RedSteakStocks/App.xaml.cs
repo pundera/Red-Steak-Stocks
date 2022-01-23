@@ -1,11 +1,4 @@
-﻿using Fluent;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 namespace RedSteakStocks
 {
@@ -16,7 +9,6 @@ namespace RedSteakStocks
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-
             base.OnStartup(e);
 
             //// add custom accent and theme resource dictionaries to the ThemeManager
@@ -31,7 +23,6 @@ namespace RedSteakStocks
             //ThemeManager.ChangeAppStyle(Application.Current,
             //                            ThemeManager.GetAccent("Cobalt"),
             //                            theme);
-
 
             var bootstrapper = new Bootstrapper();
             bootstrapper.Run(true);

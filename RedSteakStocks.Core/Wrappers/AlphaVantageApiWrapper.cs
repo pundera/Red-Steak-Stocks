@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace AlphaVantageApiWrapper
 {
@@ -72,7 +72,7 @@ namespace AlphaVantageApiWrapper
         {
             try
             {
-                using (var client = new HttpClient())
+                using (var client = new HttpClient() { Timeout = TimeSpan.FromSeconds(15) })
                 {
                     var res = await client.GetStringAsync(stringRequest);
                     return JsonConvert.DeserializeObject<JObject>(res);

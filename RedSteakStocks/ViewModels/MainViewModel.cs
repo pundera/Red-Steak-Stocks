@@ -1,36 +1,28 @@
-﻿using AlphaVantageApiWrapper;
-using Autofac;
+﻿using Autofac;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
-using Prism.Mvvm;
 using RedSteakStocks.Classes;
 using RedSteakStocks.Interfaces;
 using RedSteakStocks.Notifications;
+using RedSteakStocks.ViewModels.Base;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using static AlphaVantageApiWrapper.AlphaVantageApiWrapper;
 
 namespace RedSteakStocks.ViewModels
 {
     [Export(typeof(MainViewModel))]
-    public class MainViewModel: BindableBase
+    public class MainViewModel : ViewModelBase
     {
         private ICompanyListService _companyListService;
         private IContainer container;
 
         [ImportingConstructor]
-        public MainViewModel(IEventAggregator aggregator, IContainer container, ICompanyListService companyListService)
+        public MainViewModel(IEventAggregator aggregator, IContainer container, ICompanyListService companyListService) : base()
         {
-
             eventAggregator = aggregator;
 
             this.container = container;
@@ -57,7 +49,6 @@ namespace RedSteakStocks.ViewModels
             UncheckAllInterval = new DelegateCommand<string>(DoUncheckAllInterval);
 
             _companyListService = companyListService;
-            var list = _companyListService.GetCompanyList();
         }
 
         private IEventAggregator eventAggregator;
@@ -86,7 +77,7 @@ namespace RedSteakStocks.ViewModels
 
         private void DoUncheckSelected()
         {
-            if (SelectedCompany!=null)
+            if (SelectedCompany != null)
                 foreach (var a in SelectedCompany.Apis)
                 {
                     a.IsChecked = false;
@@ -175,7 +166,6 @@ namespace RedSteakStocks.ViewModels
         public ICommand CheckSelected { get; private set; }
         public ICommand UncheckSelected { get; private set; }
 
-
         public ICommand ExpandAll { get; private set; }
         public ICommand CollapseAll { get; private set; }
         public ICommand ReloadAll { get; private set; }
@@ -188,6 +178,7 @@ namespace RedSteakStocks.ViewModels
         public ICommand UncheckAllInterval { get; private set; }
 
         private CompanySelectionViewModel companySelectionViewModel;
+
         [Import]
         public CompanySelectionViewModel CompanySelectionViewModel
         {
@@ -199,22 +190,24 @@ namespace RedSteakStocks.ViewModels
         public ObservableCollection<CompanyToSelect> Companies { get { return companies; } set { this.SetProperty(ref companies, value); } }
 
         private CompanyToShow selectedCompany;
+
         public CompanyToShow SelectedCompany
         {
             get { return selectedCompany; }
-            set {
-                    SetProperty(ref selectedCompany, value); 
-                    foreach (var c in CompaniesToShow)
+            set
+            {
+                SetProperty(ref selectedCompany, value);
+                foreach (var c in CompaniesToShow)
+                {
+                    if (c == value)
                     {
-                        if (c == value)
-                        {
-                            c.IsSelected = true;
-                        }
-                        else
-                        {
-                            c.IsSelected = false;
-                        }
+                        c.IsSelected = true;
                     }
+                    else
+                    {
+                        c.IsSelected = false;
+                    }
+                }
 
                 this.RaisePropertyChanged("SelectedCompanyHeader");
                 this.RaisePropertyChanged("IsSelected");
@@ -233,6 +226,7 @@ namespace RedSteakStocks.ViewModels
         private InteractionRequest<CompanySelectionNotification> companySelectionRequest;
         public InteractionRequest<CompanySelectionNotification> CompanySelectionRequest { get { return companySelectionRequest; } set { SetProperty(ref companySelectionRequest, value); } }
         public ICommand RaiseCompaniesPopupViewCommand { get; private set; }
+
         private void RaiseCompaniesPopupView()
         {
             var viewModel = CompanySelectionViewModel;

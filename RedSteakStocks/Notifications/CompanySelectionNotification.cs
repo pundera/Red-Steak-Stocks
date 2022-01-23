@@ -1,17 +1,10 @@
 ﻿using Autofac;
 using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
-using RedSteakStocks.Classes;
 using RedSteakStocks.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RedSteakStocks.Notifications
 {
@@ -21,7 +14,6 @@ namespace RedSteakStocks.Notifications
         [ImportingConstructor]
         public CompanySelectionNotification(IContainer container)
         {
-
             var viewModel = container.Resolve<CompanySelectionViewModel>();
 
             ViewModel = viewModel;
@@ -39,7 +31,9 @@ namespace RedSteakStocks.Notifications
         // Both the FinishInteraction and Notification properties will be set by the PopupWindowAction
         // when the popup is shown.
         public Action FinishInteraction { get; set; }
+
         private INotification notification;
+
         public INotification Notification
         {
             get
@@ -60,14 +54,12 @@ namespace RedSteakStocks.Notifications
 
         public void AcceptSelectedItem()
         {
-
             this.Confirmed = true;
             this.FinishInteraction();
         }
 
         public void CancelInteraction()
         {
-
             this.Confirmed = false;
             this.FinishInteraction();
         }

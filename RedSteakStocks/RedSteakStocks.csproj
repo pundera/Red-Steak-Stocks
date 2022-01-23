@@ -38,6 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -150,7 +151,9 @@
     <Compile Include="Classes\CompanyToSelect.cs" />
     <Compile Include="Classes\CompanyToShow.cs" />
     <Compile Include="Converters\BoolToHiddenConverter.cs" />
+    <Compile Include="Enums\LanguageEnum.cs" />
     <Compile Include="Helpers\GetEnumDescriptionsHelper.cs" />
+    <Compile Include="Helpers\LanguageHelper.cs" />
     <Compile Include="Interfaces\ICompanyListService.cs" />
     <Compile Include="Interfaces\ISelectionCompanyListService.cs" />
     <Compile Include="Services\CompanyListService.cs" />
@@ -159,6 +162,13 @@
     <Compile Include="Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Singletons\LanguageHolder.cs" />
+    <Compile Include="Singletons\Settings.cs" />
+    <Compile Include="Singletons\SettingsHolder.cs" />
+    <Compile Include="UIClasses\LanguageUI.cs" />
+    <Compile Include="ViewModels\Base\KeyValue.cs" />
+    <Compile Include="ViewModels\Base\ObservableLocDictionary.cs" />
+    <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\CompanySelectionViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\CompanySelectionView.xaml.cs">
@@ -210,11 +220,14 @@
     <None Include="Data\companylist.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <EmbeddedResource Include="Localization\Czech\Main.json" />
+    <EmbeddedResource Include="Localization\English\Main.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <EmbeddedResource Include="Settings\Settings.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -309,6 +322,9 @@
       <Project>{5b259499-4dbb-434c-9387-f6ca7472330e}</Project>
       <Name>RedSteakStocks.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\language.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

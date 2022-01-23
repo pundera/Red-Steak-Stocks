@@ -1,17 +1,10 @@
-﻿using RedSteakStocks.Notifications;
-using Prism.Commands;
-using Prism.Interactivity.InteractionRequest;
-using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using Prism.Mvvm;
 using RedSteakStocks.Classes;
-using System.ComponentModel.Composition;
-using System.Collections.ObjectModel;
 using RedSteakStocks.Interfaces;
+using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
+using System.Linq;
+using System.Windows.Input;
 
 namespace RedSteakStocks.ViewModels
 {
@@ -21,8 +14,8 @@ namespace RedSteakStocks.ViewModels
         [ImportingConstructor]
         public CompanySelectionViewModel(ICompanyListService companyListService, ISelectionCompanyListService selectionService)
         {
-            var list = companyListService.GetCompanyList();
-            var companies = (list.ConvertAll((ccc) => new CompanyToSelect()
+            var list = companyListService.GetCompanies();
+            var companies = (list.Select((ccc) => new CompanyToSelect()
             {
                 Symbol = ccc.Symbol,
                 Name = ccc.Name,
@@ -30,7 +23,7 @@ namespace RedSteakStocks.ViewModels
                 Sector = ccc.Sector
             }));
 
-            selectionService.Companies = companies;
+            selectionService.Companies = companies.ToList();
 
             this.Items = new ObservableCollection<CompanyToSelect>(selectionService.Companies);
             if (items?.Count > 0) SelectedItem = items[0];
@@ -39,6 +32,7 @@ namespace RedSteakStocks.ViewModels
         }
 
         private ObservableCollection<CompanyToSelect> items;
+
         public ObservableCollection<CompanyToSelect> Items
         {
             get { return items; }

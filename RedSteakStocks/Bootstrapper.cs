@@ -1,20 +1,18 @@
-﻿using RedSteakStocks.Plots;
+﻿using Autofac;
 using Prism.Autofac;
 using Prism.Modularity;
-using System.ComponentModel.Composition.Hosting;
-using System.Windows;
-using System;
 using Prism.Regions;
-using Autofac;
 using RedSteakStocks.Interfaces;
-using RedSteakStocks.Services;
 using RedSteakStocks.Notifications;
+using RedSteakStocks.Plots;
+using RedSteakStocks.Services;
 using RedSteakStocks.ViewModels;
-using RedSteakStocks.Plots.Views;
+using System;
+using System.Windows;
 
 namespace RedSteakStocks
 {
-    class Bootstrapper : AutofacBootstrapper
+    internal class Bootstrapper : AutofacBootstrapper
     {
         protected override void ConfigureContainerBuilder(ContainerBuilder builder)
         {
@@ -26,14 +24,11 @@ namespace RedSteakStocks
             builder.RegisterType<CompanySelectionViewModel>().AsSelf();
             builder.RegisterType<CompanySelectionNotification>().AsSelf();
 
-
             //// register autofac module
             //builder.RegisterModule<LeftModuleRegistry>();
             //builder.RegisterModule<MiddleModuleRegistry>();
             //builder.RegisterModule<RightModuleRegistry>();
-
         }
-
 
         protected override DependencyObject CreateShell()
         {
@@ -47,13 +42,11 @@ namespace RedSteakStocks
             Application.Current.MainWindow = (Window)this.Shell;
             Application.Current.MainWindow.Show();
 
-
             // View discovery
             var regionManager = Container.Resolve<IRegionManager>();
             regionManager.RegisterViewWithRegion("MainRegion", () => Container.Resolve<MainView>());
 
             regionManager.RegisterViewWithRegion("Plots", typeof(RedSteakStocks.Plots.Views.TabsView));
-
         }
 
         protected override void ConfigureModuleCatalog()

@@ -1,9 +1,8 @@
-﻿using RedSteakStocks.Core.Views;
+﻿using Autofac;
+using Prism.Autofac;
 using Prism.Modularity;
 using Prism.Regions;
-using System;
-using Autofac;
-using Prism.Autofac;
+using RedSteakStocks.Core.Views;
 
 namespace RedSteakStocks.Core
 {

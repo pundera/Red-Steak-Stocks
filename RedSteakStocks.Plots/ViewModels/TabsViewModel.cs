@@ -9,15 +9,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
 using apiWrapper = AlphaVantageApiWrapper;
 
 namespace RedSteakStocks.Plots.ViewModels
 {
-    public class TabsViewModel: BindableBase
+    public class TabsViewModel : BindableBase
     {
         public TabsViewModel(IEventAggregator eventAggregator)
         {
@@ -31,10 +29,11 @@ namespace RedSteakStocks.Plots.ViewModels
             });
 
             var ev = eventAggregator.GetEvent<StockRefreshNeededEvent>();
-            ev.Subscribe(async (p) => {
+            ev.Subscribe(async (p) =>
+            {
                 Console.WriteLine("In subscribe ... (StockRefreshNeededEvent)");
                 await AddTabAsync(p.Pars, p.Name);
-                
+
                 //.ContinueWith(task => Tabs.ToList().ForEach(tab => tab.Tabs.ToList().ForEach(t => t.Model.InvalidatePlot(true))));
             });
         }
@@ -49,6 +48,14 @@ namespace RedSteakStocks.Plots.ViewModels
             }
 
             var root = await apiWrapper.AlphaVantageApiWrapper.GetTechnical(pars, "A903Z1G7NAB6A551");
+
+            if (root == null)
+            {
+                // NO DATA
+                // ToDo: handle it !!!
+
+                return;
+            }
 
             var title = pars[1].ParamValue;
 
@@ -70,7 +77,6 @@ namespace RedSteakStocks.Plots.ViewModels
 
                 foreach (var v in t.Data) if (v.TechnicalKey.Equals("1. open")) data.Add(new DataPoint(t.Date.Ticks, v.TechnicalValue));
                 ix++;
-
             }
 
             if (isNewTabPlot) Application.Current.Dispatcher.Invoke(() =>
@@ -92,12 +98,13 @@ namespace RedSteakStocks.Plots.ViewModels
 
             //await Task.Yield();
 
-
             tabPlot.Model.InvalidatePlot(true);
         }
 
         private ObservableCollection<TabItemSymbol> tabs;
-        public ObservableCollection<TabItemSymbol> Tabs {
+
+        public ObservableCollection<TabItemSymbol> Tabs
+        {
             get
             {
                 return tabs;

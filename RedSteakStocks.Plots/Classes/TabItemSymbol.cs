@@ -1,14 +1,9 @@
 ﻿using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RedSteakStocks.Plots.Classes
 {
-    public class TabItemSymbol: BindableBase
+    public class TabItemSymbol : BindableBase
     {
         public TabItemSymbol(string name)
         {
@@ -17,6 +12,7 @@ namespace RedSteakStocks.Plots.Classes
         }
 
         private string name;
+
         public string Name
         {
             get
@@ -30,6 +26,7 @@ namespace RedSteakStocks.Plots.Classes
         }
 
         private ObservableCollection<TabItemPlot> tabs;
+
         public ObservableCollection<TabItemPlot> Tabs
         {
             get

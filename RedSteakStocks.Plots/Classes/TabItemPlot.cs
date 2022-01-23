@@ -1,15 +1,9 @@
 ﻿using OxyPlot;
 using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RedSteakStocks.Plots.Classes
 {
-    public class TabItemPlot: BindableBase
+    public class TabItemPlot : BindableBase
     {
         public TabItemPlot(string name)
         {
@@ -17,7 +11,8 @@ namespace RedSteakStocks.Plots.Classes
             //Points = new ObservableCollection<DataPoint>();
         }
 
-    private string name;
+        private string name;
+
         public string Name
         {
             get

@@ -1,23 +1,17 @@
 ﻿using Prism.Events;
 using RedSteakStocks.Plots.Classes;
 using RedSteakStocks.Plots.Events;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RedSteakStocks.Plots.Singletons
 {
     public sealed class TabsHolder
     {
-        TabsHolder()
+        private TabsHolder()
         {
-
         }
 
-        TabsHolder(IEventAggregator eventAggregator)
+        private TabsHolder(IEventAggregator eventAggregator)
         {
             this.eventAggregator = eventAggregator;
             Items.CollectionChanged += Items_CollectionChanged;

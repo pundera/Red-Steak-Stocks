@@ -8,15 +8,14 @@
         mc:Ignorable="d"
         xmlns:prism="http://prismlibrary.com/"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    
+
         xmlns:local="clr-namespace:RedSteakStocks"
         xmlns:viewModels="clr-namespace:RedSteakStocks.ViewModels"
         xmlns:views="clr-namespace:RedSteakStocks.Views"
-         
-        Resources="{StaticResource Xxx}"  
-        Opacity="1" 
-        Background="White" >
 
+        Resources="{StaticResource Xxx}"
+        Opacity="1"
+        Background="White">
 
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding CompanySelectionRequest, Mode=OneWay}">
@@ -25,8 +24,8 @@
             <prism:PopupWindowAction IsModal="True" WindowStartupLocation="CenterOwner" CenterOverAssociatedObject="True">
                 <prism:PopupWindowAction.WindowStyle>
                     <Style TargetType="Window">
-                        <Setter Property="ResizeMode" Value="CanResizeWithGrip"/>
-                        <Setter Property="WindowStyle" Value="ToolWindow"/>
+                        <Setter Property="ResizeMode" Value="CanResizeWithGrip" />
+                        <Setter Property="WindowStyle" Value="ToolWindow" />
                     </Style>
                 </prism:PopupWindowAction.WindowStyle>
                 <prism:PopupWindowAction.WindowContent>
@@ -43,219 +42,231 @@
         </Grid.RowDefinitions>
 
         <fluent:Ribbon BorderBrush="Transparent" AutomaticStateManagement="True" SelectedTabIndex="0">
-            <fluent:RibbonTabItem x:Name="StocksTab" Header="Stocks" IsOpen="True">
-                <fluent:RibbonGroupBox Header="Stock List" FontWeight="Light">
-                    <fluent:Button Margin="10,0" 
+            <fluent:RibbonTabItem x:Name="StocksTab" Header="{Binding _[Title]}" IsOpen="True">
+                <fluent:RibbonGroupBox Header="{Binding _[StockList]}" FontWeight="Light">
+                    <fluent:Button Margin="10,0"
                                    FontWeight="Bold"
-                                   Icon="{StaticResource ResourceKey=addStock}" 
-                                   Header="Add One" LargeIcon="{DynamicResource addStock}" 
-                                   Command="{Binding RaiseCompaniesPopupViewCommand}"/>
+                                   Icon="{StaticResource ResourceKey=addStock}"
+                                   Header="{Binding _[AddCompany]}" LargeIcon="{DynamicResource addStock}"
+                                   Command="{Binding RaiseCompaniesPopupViewCommand}" />
                 </fluent:RibbonGroupBox>
 
-                <fluent:RibbonGroupBox 
-                    Header="{Binding SelectedCompanyHeader}" 
+                <fluent:RibbonGroupBox
+                    Header="{Binding SelectedCompanyHeader}"
                     FontWeight="Light"
                     IsEnabled="{Binding IsSelected}">
-                    <fluent:Button Margin="5,0" 
-                                   Icon="{StaticResource ResourceKey=reloadSelected}" 
-                                   Header="Reload" 
+                    <fluent:Button Margin="5,0"
+                                   Icon="{StaticResource ResourceKey=reloadSelected}"
+                                   Header="Reload"
                                    LargeIcon="{DynamicResource reloadSelected}"
-                                   Command="{Binding ReloadSelected}"/>
-                    <fluent:Button Margin="5,0" 
-                                   Icon="{StaticResource ResourceKey=checkSelected}" 
-                                   Header="Select" 
+                                   Command="{Binding ReloadSelected}" />
+                    <fluent:Button Margin="5,0"
+                                   Icon="{StaticResource ResourceKey=checkSelected}"
+                                   Header="Select"
                                    LargeIcon="{DynamicResource checkSelected}"
-                                   Command="{Binding CheckSelected}"/>
-                    <fluent:Button Margin="5,0" 
-                                   Icon="{StaticResource ResourceKey=uncheckSelected}" 
-                                   Header="Unselect" 
+                                   Command="{Binding CheckSelected}" />
+                    <fluent:Button Margin="5,0"
+                                   Icon="{StaticResource ResourceKey=uncheckSelected}"
+                                   Header="Unselect"
                                    LargeIcon="{DynamicResource uncheckSelected}"
-                                   Command="{Binding UncheckSelected}"/>
-                    <fluent:Button Margin="5,0" 
-                                   Icon="{StaticResource ResourceKey=removeStock}" 
-                                   Header="Remove" 
+                                   Command="{Binding UncheckSelected}" />
+                    <fluent:Button Margin="5,0"
+                                   Icon="{StaticResource ResourceKey=removeStock}"
+                                   Header="Remove"
                                    LargeIcon="{DynamicResource removeStock}"
-                                   Command="{Binding RemoveSelected}"/>
+                                   Command="{Binding RemoveSelected}" />
                 </fluent:RibbonGroupBox>
 
-                <fluent:RibbonGroupBox 
-                    Header="All Stocks" 
+                <fluent:RibbonGroupBox
+                    Header="All Stocks"
                     FontWeight="Light"
                     IsEnabled="{Binding IsSelected}">
-                    <fluent:Button Margin="5,0" 
-                                   Icon="{StaticResource ResourceKey=reloadAll}" 
-                                   Header="Expand" 
+                    <fluent:Button Margin="5,0"
+                                   Icon="{StaticResource ResourceKey=reloadAll}"
+                                   Header="Expand"
                                    LargeIcon="{DynamicResource expandAll}"
-                                   Command="{Binding ExpandAll}"/>
-                    <fluent:Button Margin="5,0" 
-                                   Icon="{StaticResource ResourceKey=reloadAll}" 
-                                   Header="Collapse" 
+                                   Command="{Binding ExpandAll}" />
+                    <fluent:Button Margin="5,0"
+                                   Icon="{StaticResource ResourceKey=reloadAll}"
+                                   Header="Collapse"
                                    LargeIcon="{DynamicResource collapseAll}"
-                                   Command="{Binding CollapseAll}"/>
-                    <fluent:Button Margin="5,0" 
-                                   Icon="{StaticResource ResourceKey=reloadAll}" 
-                                   Header="Reload" 
+                                   Command="{Binding CollapseAll}" />
+                    <fluent:Button Margin="5,0"
+                                   Icon="{StaticResource ResourceKey=reloadAll}"
+                                   Header="Reload"
                                    LargeIcon="{DynamicResource reloadAll}"
-                                   Command="{Binding ReloadAll}"/>
-                    <fluent:Button Margin="5,0" 
-                                   Icon="{StaticResource ResourceKey=checkAll}" 
-                                   Header="Select All" 
+                                   Command="{Binding ReloadAll}" />
+                    <fluent:Button Margin="5,0"
+                                   Icon="{StaticResource ResourceKey=checkAll}"
+                                   Header="Select All"
                                    LargeIcon="{DynamicResource checkAll}"
-                                   Command="{Binding CheckAll}"/>
-                    <fluent:Button Margin="5,0" 
-                                   Icon="{StaticResource ResourceKey=uncheckAll}" 
-                                   Header="Unselect All" 
+                                   Command="{Binding CheckAll}" />
+                    <fluent:Button Margin="5,0"
+                                   Icon="{StaticResource ResourceKey=uncheckAll}"
+                                   Header="Unselect All"
                                    LargeIcon="{DynamicResource uncheckAll}"
-                                   Command="{Binding UncheckAll}"/>
-
+                                   Command="{Binding UncheckAll}" />
                 </fluent:RibbonGroupBox>
-                
-                <fluent:RibbonGroupBox 
+
+                <fluent:RibbonGroupBox
                     Header="Check All"
                     FontWeight="Light"
-                    IsEnabled="{Binding IsSelected}" >
+                    IsEnabled="{Binding IsSelected}">
                     <fluent:SplitButton
                         Header="Interval to Select"
-                        LargeIcon="{DynamicResource check}" >
+                        LargeIcon="{DynamicResource check}">
                         <fluent:GalleryGroupContainer Header="Minutes">
-                            <fluent:Button Margin="5,0" 
-                                   Header="One Minute" 
+                            <fluent:Button Margin="5,0"
+                                   Header="One Minute"
                                    LargeIcon="{DynamicResource oneMinute}"
                                    Command="{Binding CheckAllInterval}"
-                                   CommandParameter="OneMinute"/>
-                            <fluent:Button Margin="5,0" 
-                                   Header="Five Minutes" 
+                                   CommandParameter="OneMinute" />
+                            <fluent:Button Margin="5,0"
+                                   Header="Five Minutes"
                                    LargeIcon="{DynamicResource fiveMinutes}"
                                    Command="{Binding CheckAllInterval}"
-                                   CommandParameter="FiveMinutes"/>
-                            <fluent:Button Margin="5" 
-                                   Header="Fifteen Minutes" 
+                                   CommandParameter="FiveMinutes" />
+                            <fluent:Button Margin="5"
+                                   Header="Fifteen Minutes"
                                    LargeIcon="{DynamicResource fifteenMinutes}"
                                    Command="{Binding CheckAllInterval}"
-                                   CommandParameter="FifteenMinutes"/>
-                            <fluent:Button Margin="5,0" 
-                                   Header="Thirty Minutes" 
+                                   CommandParameter="FifteenMinutes" />
+                            <fluent:Button Margin="5,0"
+                                   Header="Thirty Minutes"
                                    LargeIcon="{DynamicResource thirtyMinutes}"
                                    Command="{Binding CheckAllInterval}"
-                                   CommandParameter="ThirtyMinutes"/>
+                                   CommandParameter="ThirtyMinutes" />
                         </fluent:GalleryGroupContainer>
 
                         <fluent:GalleryGroupContainer Header="Hours">
-                            <fluent:Button Margin="5,0" 
-                                   Header="One Hour" 
+                            <fluent:Button Margin="5,0"
+                                   Header="One Hour"
                                    LargeIcon="{DynamicResource oneHour}"
                                    Command="{Binding CheckAllInterval}"
-                                   CommandParameter="SixtyMinutes"/>
+                                   CommandParameter="SixtyMinutes" />
                         </fluent:GalleryGroupContainer>
 
                         <fluent:GalleryGroupContainer Header="Days / Weeks">
 
-                            <fluent:Button Margin="5,0" 
-                                   Header="Days" 
+                            <fluent:Button Margin="5,0"
+                                   Header="Days"
                                    LargeIcon="{DynamicResource daily}"
                                    Command="{Binding CheckAllInterval}"
-                                   CommandParameter="Daily"/>
-                            <fluent:Button Margin="5,0" 
-                                   Header="Weeks" 
+                                   CommandParameter="Daily" />
+                            <fluent:Button Margin="5,0"
+                                   Header="Weeks"
                                    LargeIcon="{DynamicResource weekly}"
                                    Command="{Binding CheckAllInterval}"
-                                   CommandParameter="Weekly"/>
+                                   CommandParameter="Weekly" />
                         </fluent:GalleryGroupContainer>
 
                         <fluent:GalleryGroupContainer Header="Months">
-                             <fluent:Button Margin="5,0" 
-                                   Header="Months" 
+                             <fluent:Button Margin="5,0"
+                                   Header="Months"
                                    LargeIcon="{DynamicResource monthly}"
                                    Command="{Binding CheckAllInterval}"
-                                   CommandParameter="Monthly"/>
+                                   CommandParameter="Monthly" />
                         </fluent:GalleryGroupContainer>
                     </fluent:SplitButton>
-
-
                 </fluent:RibbonGroupBox>
 
-                <fluent:RibbonGroupBox 
+                <fluent:RibbonGroupBox
                     Header="Uncheck All"
                     FontWeight="Light"
-                    IsEnabled="{Binding IsSelected}" >
+                    IsEnabled="{Binding IsSelected}">
                     <fluent:SplitButton
                         Header="Interval to Unselect"
-                        LargeIcon="{DynamicResource uncheck}" >
+                        LargeIcon="{DynamicResource uncheck}">
                         <fluent:GalleryGroupContainer Header="Minutes">
-                            <fluent:Button Margin="5,0" 
-                                   Header="One Minute" 
+                            <fluent:Button Margin="5,0"
+                                   Header="One Minute"
                                    LargeIcon="{DynamicResource unOneMinute}"
                                    Command="{Binding UncheckAllInterval}"
-                                   CommandParameter="OneMinute"/>
-                            <fluent:Button Margin="5,0" 
-                                   Header="Five Minutes" 
+                                   CommandParameter="OneMinute" />
+                            <fluent:Button Margin="5,0"
+                                   Header="Five Minutes"
                                    LargeIcon="{DynamicResource unFiveMinutes}"
                                    Command="{Binding UncheckAllInterval}"
-                                   CommandParameter="FiveMinutes"/>
-                            <fluent:Button Margin="5" 
-                                   Header="Fifteen Minutes" 
+                                   CommandParameter="FiveMinutes" />
+                            <fluent:Button Margin="5"
+                                   Header="Fifteen Minutes"
                                    LargeIcon="{DynamicResource unFifteenMinutes}"
                                    Command="{Binding UncheckAllInterval}"
-                                   CommandParameter="FifteenMinutes"/>
-                            <fluent:Button Margin="5,0" 
-                                   Header="Thirty Minutes" 
+                                   CommandParameter="FifteenMinutes" />
+                            <fluent:Button Margin="5,0"
+                                   Header="Thirty Minutes"
                                    LargeIcon="{DynamicResource unThirtyMinutes}"
                                    Command="{Binding UncheckAllInterval}"
-                                   CommandParameter="ThirtyMinutes"/>
+                                   CommandParameter="ThirtyMinutes" />
                         </fluent:GalleryGroupContainer>
 
                         <fluent:GalleryGroupContainer Header="Hours">
-                            <fluent:Button Margin="5,0" 
-                                   Header="One Hour" 
+                            <fluent:Button Margin="5,0"
+                                   Header="One Hour"
                                    LargeIcon="{DynamicResource unOneHour}"
                                    Command="{Binding UncheckAllInterval}"
-                                   CommandParameter="SixtyMinutes"/>
+                                   CommandParameter="SixtyMinutes" />
                         </fluent:GalleryGroupContainer>
 
                         <fluent:GalleryGroupContainer Header="Days / Weeks">
 
-                            <fluent:Button Margin="5,0" 
-                                   Header="Days" 
+                            <fluent:Button Margin="5,0"
+                                   Header="Days"
                                    LargeIcon="{DynamicResource unDaily}"
                                    Command="{Binding UncheckAllInterval}"
-                                   CommandParameter="Daily"/>
-                            <fluent:Button Margin="5,0" 
-                                   Header="Weeks" 
+                                   CommandParameter="Daily" />
+                            <fluent:Button Margin="5,0"
+                                   Header="Weeks"
                                    LargeIcon="{DynamicResource unWeekly}"
                                    Command="{Binding UncheckAllInterval}"
-                                   CommandParameter="Weekly"/>
+                                   CommandParameter="Weekly" />
                         </fluent:GalleryGroupContainer>
 
                         <fluent:GalleryGroupContainer Header="Months">
-                            <fluent:Button Margin="5,0" 
-                                   Header="Months" 
+                            <fluent:Button Margin="5,0"
+                                   Header="Months"
                                    LargeIcon="{DynamicResource unMonthly}"
                                    Command="{Binding UncheckAllInterval}"
-                                   CommandParameter="Monthly"/>
+                                   CommandParameter="Monthly" />
                         </fluent:GalleryGroupContainer>
                     </fluent:SplitButton>
                 </fluent:RibbonGroupBox>
 
-                <fluent:RibbonGroupBox 
-                    Header="Stock List" 
+                <fluent:RibbonGroupBox
+                    Header="Stock List"
                     FontWeight="Light"
                     IsEnabled="{Binding IsSelected}">
-                    <fluent:Button Margin="5,0" 
-                                   Foreground="Firebrick" 
-                                   FontWeight="Bold" 
-                                   Icon="{StaticResource ResourceKey=removeAll}" 
-                                   Header="Remove All" 
+                    <fluent:Button Margin="5,0"
+                                   Foreground="Firebrick"
+                                   FontWeight="Bold"
+                                   Icon="{StaticResource ResourceKey=removeAll}"
+                                   Header="Remove All"
                                    LargeIcon="{DynamicResource removeAll}"
-                                   Command="{Binding RemoveAll}"/>
+                                   Command="{Binding RemoveAll}" />
+                </fluent:RibbonGroupBox>
+                <fluent:RibbonGroupBox
+                    Header="{Binding _[Language]}"
+                    FontWeight="Light">
+                    <fluent:ComboBox
+                        SelectedIndex="0"
+                        Margin="5,0"
+                        Foreground="Black"
+                        FontWeight="Bold"
+                        Icon="{StaticResource ResourceKey=language}"
+                        Header="{Binding _[Language]}" IsReadOnly="True">
+                        <fluent:ComboBox.Items>
+                            <Label Padding="4" Content="Česky" />
+                            <Label Padding="4" Content="English" />
+                        </fluent:ComboBox.Items>
+                    </fluent:ComboBox>
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
         </fluent:Ribbon>
 
-
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <ListView Grid.Column="0"
             Padding="0"
@@ -263,17 +274,16 @@
             BorderThickness="0,0,1,0"
             BorderBrush="LightGray"
             Foreground="Transparent"
-             
+
             HorizontalAlignment="Left"
             HorizontalContentAlignment="Stretch"
             ItemsSource="{Binding CompaniesToShow}"
-           
-            ItemTemplate="{StaticResource TreeTemplate}" 
-            SelectionMode="Single" 
+
+            ItemTemplate="{StaticResource TreeTemplate}"
+            SelectionMode="Single"
             SelectedItem= "{Binding SelectedCompany, Mode=TwoWay}"
-            IsSynchronizedWithCurrentItem="True" 
-            Background="Transparent"
-            >
+            IsSynchronizedWithCurrentItem="True"
+            Background="Transparent">
 
             <!--SelectedIndex="{Binding SelectedCompanyIndex, Mode=TwoWay}"-->
             <!--
@@ -281,22 +291,20 @@
                 <Style TargetType="{x:Type ListViewItem}">
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Border.Background" Value="DarkGreen"/>
+                            <Setter Property="Border.Background" Value="DarkGreen" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="False">
-                            <Setter Property="Border.Background" Value="Transparent"/>
+                            <Setter Property="Border.Background" Value="Transparent" />
                         </Trigger>
                     </Style.Triggers>
                     <Setter Property="IsSelected" Value="{Binding Selected, Mode=TwoWay}" />
                 </Style>
             </ListView.ItemContainerStyle>-->
-
             </ListView>
-            <ContentControl 
+            <ContentControl
                 Grid.Column="1"
                 prism:RegionManager.RegionName="Plots">
             </ContentControl>
         </Grid>
     </Grid>
-
 </UserControl>

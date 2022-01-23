@@ -3,17 +3,14 @@ using Prism.Events;
 using Prism.Mvvm;
 using RedSteakStocks.Core.Events;
 using RedSteakStocks.Helpers;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using static AlphaVantageApiWrapper.AlphaVantageApiWrapper;
 
 namespace RedSteakStocks.Classes
 {
-    public class Api: BindableBase
+    public class Api : BindableBase
     {
         public Api(IEventAggregator eventAggregator, string symbol, string name, string interval)
         {
@@ -31,7 +28,6 @@ namespace RedSteakStocks.Classes
 
         private void DoRefresh()
         {
-
             var descs = GetEnumDescriptionsHelper.GetDescriptions(typeof(AvIntervalEnum));
             var d = descs.First(x => x.Item2 == Interval).Item1.ToString();
             var interval = d.Replace(" ", "");
@@ -63,6 +59,7 @@ namespace RedSteakStocks.Classes
         public ICommand Refresh { get; private set; }
 
         private bool isChecked;
+
         public bool IsChecked
         {
             get

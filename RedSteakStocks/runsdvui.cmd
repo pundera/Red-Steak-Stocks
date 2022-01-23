@@ -1,0 +1,2 @@
+cd /d "C:\! projects\Red-Steak-Stocks\RedSteakStocks" &msbuild "RedSteakStocks.csproj" /t:sdvViewer /p:configuration="Debug" /p:platform="Any CPU" /p:SolutionDir="C:\! projects\Red-Steak-Stocks" 
+exit %errorlevel% 

@@ -8,23 +8,23 @@
         mc:Ignorable="d"
         xmlns:prism="http://prismlibrary.com/"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    
+
         xmlns:local="clr-namespace:RedSteakStocks"
         xmlns:viewModels="clr-namespace:RedSteakStocks.ViewModels"
         xmlns:views="clr-namespace:RedSteakStocks.Views"
         TitleForeground="Black"
-        Title="Red Steak Stocks" 
-        Height="580" 
-        Width="780" 
-        Icon="Images/red-steak-stocks.png" 
-         
-        MinWidth="800" 
+        Title="Red Steak Stocks"
+        Height="580"
+        Width="780"
+        Icon="Images/red-steak-stocks.png"
+
+        MinWidth="800"
         MinHeight="500"
-        Resources="{StaticResource Xxx}" 
-        WindowStartupLocation="CenterScreen" 
-        WindowState="Maximized" 
-        Opacity="1" 
-        Background="White" >
-    
-    <ContentControl Name="MainRegion" prism:RegionManager.RegionName="MainRegion"/>
+        Resources="{StaticResource Xxx}"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        Opacity="1"
+        Background="White">
+
+    <ContentControl Name="MainRegion" prism:RegionManager.RegionName="MainRegion" />
 </fluent:RibbonWindow>

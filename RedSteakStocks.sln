@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedSteakStocks.Plots", "Red
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedSteakStocks.Core", "RedSteakStocks.Core\RedSteakStocks.Core.csproj", "{5B259499-4DBB-434C-9387-F6CA7472330E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkeletonCache", "..\Example0001\SkeletonCache\SkeletonCache.csproj", "{2010986E-E64E-4B8B-A33A-58883B10C282}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{5B259499-4DBB-434C-9387-F6CA7472330E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B259499-4DBB-434C-9387-F6CA7472330E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B259499-4DBB-434C-9387-F6CA7472330E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2010986E-E64E-4B8B-A33A-58883B10C282}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2010986E-E64E-4B8B-A33A-58883B10C282}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2010986E-E64E-4B8B-A33A-58883B10C282}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2010986E-E64E-4B8B-A33A-58883B10C282}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

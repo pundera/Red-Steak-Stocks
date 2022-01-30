@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AlphaVantageApiWrapper
@@ -17,13 +18,15 @@ namespace AlphaVantageApiWrapper
 
             var apiData = await CallAlphaVantageApi(stringRequest);
 
+            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+
             var technicalsObject = new AlphaVantageRootObject
             {
                 MetaData = new MetaData
                 {
                     Function = parameters.FirstOrDefault(x => x.ParamName.Equals("function"))?.ParamValue ?? "NA?",
                     Interval = parameters.FirstOrDefault(x => x.ParamName.Equals("interval"))?.ParamValue ?? "NA?",
-                    SeriesType = parameters.FirstOrDefault(x => x.ParamName.Equals("series_type"))?.ParamValue ?? "NA?",
+                    //SeriesType = parameters.FirstOrDefault(x => x.ParamName.Equals("series_type"))?.ParamValue ?? "NA?",
                     Symbol = parameters.FirstOrDefault(x => x.ParamName.Equals("symbol"))?.ParamValue ?? "NA?"
                 },
 
@@ -95,7 +98,7 @@ namespace AlphaVantageApiWrapper
         {
             public string Function;
             public string Interval;
-            public string SeriesType;
+            //public string SeriesType;
             public string Symbol;
         }
 
